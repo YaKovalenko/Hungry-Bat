@@ -1,4 +1,4 @@
-namespace Orchid.FSM
+namespace Core.FSM
 {
     public sealed class AnyState : State
     {

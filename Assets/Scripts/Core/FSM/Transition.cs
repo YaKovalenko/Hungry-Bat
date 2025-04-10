@@ -1,6 +1,6 @@
 using System;
 
-namespace Orchid.FSM
+namespace Core.FSM
 {
     public class Transition
     {

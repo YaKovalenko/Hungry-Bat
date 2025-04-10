@@ -1,4 +1,4 @@
-namespace Orchid.FSM
+namespace Core.FSM
 {
     public abstract class SuperState : State
     {
