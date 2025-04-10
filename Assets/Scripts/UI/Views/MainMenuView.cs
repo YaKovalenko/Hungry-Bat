@@ -29,5 +29,10 @@ namespace UI.Views
         {
             OnPlayButtonClick?.Invoke();
         }
+
+        public void SetBestScore(string bestScore)
+        {
+            _bestScoreText.text = bestScore;
+        }
     }
 }

@@ -45,11 +45,12 @@ namespace Core
         private FiniteStateMachine CreateStateMachine(ISceneManagementService sceneManagementService)
         {
             var loadingState = new LoadingState(sceneManagementService, () => _currentState = _mainMenuStateId);
-            var mainMenuState = new MainMenuState(sceneManagementService, () => _currentState = _mainMenuStateId);
+            var mainMenuState = new MainMenuState(sceneManagementService, () => _currentState = _loadingStateId);
 
             var transitions = new Transition[]
             {
-                new Transition(() => string.Equals(_currentState, _mainMenuStateId), loadingState, mainMenuState)
+                new Transition(() => string.Equals(_currentState, _mainMenuStateId), loadingState, mainMenuState),
+                new Transition(() => string.Equals(_currentState, _loadingStateId), mainMenuState, loadingState)
             };
 
             return new FiniteStateMachine(transitions, loadingState);
