@@ -38,7 +38,7 @@ namespace Core.States
         private FiniteStateMachine CreateStateMachine(ISceneManagementService sceneManagementService,
             Action setGameStateCallback)
         {
-            var gameplayState = new GameplayState(sceneManagementService, setGameStateCallback);
+            var gameplayState = new GameplayState(sceneManagementService, setGameStateCallback, OnPlayerWinHandler, OnPlayerLoseHandler);
             var winState = new WinState(sceneManagementService, () => _currentState = _winStateId);
             var loseState = new LoseState(sceneManagementService, () => _currentState = _loseStateId);
 
@@ -51,6 +51,16 @@ namespace Core.States
             };
 
             return new FiniteStateMachine(transitions, gameplayState);
+        }
+
+        private void OnPlayerWinHandler()
+        {
+            _currentState = _winStateId;
+        }
+        
+        private void OnPlayerLoseHandler()
+        {
+            _currentState = _loseStateId;
         }
     }
 }

@@ -9,6 +9,5 @@ public class Treat : MonoBehaviour, IPointerClickHandler
     public void OnPointerClick(PointerEventData eventData)
     {
         OnTreatClicked?.Invoke();
-        Debug.Log("Treat clicked");
     }
 }

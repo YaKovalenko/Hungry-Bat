@@ -38,9 +38,9 @@ namespace UI.Views
             _closeButton.onClick.RemoveListener(OnCloseButtonClicked);
         }
 
-        public void SetScore(int score)
+        public void SetScore(int score, int maxScore)
         {
-            _scoreText.text = score.ToString();
+            _scoreText.text = $"{score} / {maxScore}";
         }
 
         public void SetTime(float time)
