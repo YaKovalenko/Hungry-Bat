@@ -1,3 +1,4 @@
+using System;
 using Core.FSM;
 using Core.SceneManagement;
 
@@ -9,16 +10,32 @@ namespace Core.States
         private readonly string _winStateId = FiniteStateMachine.GetStateID<WinState>();
         private readonly string _loseStateId = FiniteStateMachine.GetStateID<LoseState>();
 
+        private readonly ISceneManagementService _sceneManagementService;
+        
         private string _currentState;
 
-        public GameSuperState(ISceneManagementService sceneManagementService)
+        public GameSuperState(ISceneManagementService sceneManagementService, Action setGameStateCallback)
         {
-            FiniteStateMachine = CreateStateMachine(sceneManagementService);
+            _sceneManagementService = sceneManagementService;
+            
+            FiniteStateMachine = CreateStateMachine(sceneManagementService, setGameStateCallback);
         }
 
-        private FiniteStateMachine CreateStateMachine(ISceneManagementService sceneManagementService)
+        public override async void Enter()
         {
-            var gameplayState = new GameplayState(sceneManagementService, () => _currentState = _gameplayStateId);
+            await _sceneManagementService.LoadSceneAsync(Constants.GAME_SCENE_NAME);
+
+        }
+        
+        public override async void Exit()
+        {
+            
+        }
+
+        private FiniteStateMachine CreateStateMachine(ISceneManagementService sceneManagementService,
+            Action gameStateCallback)
+        {
+            var gameplayState = new GameplayState(sceneManagementService, gameStateCallback);
             var winState = new WinState(sceneManagementService, () => _currentState = _winStateId);
             var loseState = new LoseState(sceneManagementService, () => _currentState = _loseStateId);
 

@@ -11,6 +11,7 @@ namespace Core
     {
         private readonly string _loadingStateId = FiniteStateMachine.GetStateID<LoadingState>();
         private readonly string _mainMenuStateId = FiniteStateMachine.GetStateID<MainMenuState>();
+        private readonly string _gameSuperState= FiniteStateMachine.GetStateID<GameSuperState>();
 
         private readonly FiniteStateMachine _stateMachine;
 
@@ -45,12 +46,13 @@ namespace Core
         private FiniteStateMachine CreateStateMachine(ISceneManagementService sceneManagementService)
         {
             var loadingState = new LoadingState(sceneManagementService, () => _currentState = _mainMenuStateId);
-            var mainMenuState = new MainMenuState(sceneManagementService, () => _currentState = _loadingStateId);
+            var mainMenuState = new MainMenuState(sceneManagementService, () => _currentState = _gameSuperState);
+            var gameSuperState = new GameSuperState(sceneManagementService, () => _currentState = _mainMenuStateId);
 
             var transitions = new Transition[]
             {
                 new Transition(() => string.Equals(_currentState, _mainMenuStateId), loadingState, mainMenuState),
-                new Transition(() => string.Equals(_currentState, _loadingStateId), mainMenuState, loadingState)
+                new Transition(() => string.Equals(_currentState, _gameSuperState), mainMenuState, gameSuperState)
             };
 
             return new FiniteStateMachine(transitions, loadingState);

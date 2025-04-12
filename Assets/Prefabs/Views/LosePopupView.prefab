@@ -397,7 +397,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6054736098432602024}
   - component: {fileID: 879935241493694751}
-  - component: {fileID: 6283831000104052406}
+  - component: {fileID: 6677870462472003595}
   m_Layer: 5
   m_Name: LosePopupView
   m_TagString: Untagged
@@ -437,7 +437,7 @@ CanvasGroup:
   m_Interactable: 1
   m_BlocksRaycasts: 1
   m_IgnoreParentGroups: 0
---- !u!114 &6283831000104052406
+--- !u!114 &6677870462472003595
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -446,13 +446,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 8055795348447949608}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5aff1b1b87534d83a2b58b326880afef, type: 3}
+  m_Script: {fileID: 11500000, guid: 69fe51899535402a9d2c7663e2d72aec, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   _canvasGroup: {fileID: 879935241493694751}
   _hideOnStart: 1
-  _startGameButton: {fileID: 0}
-  _bestScoreText: {fileID: 0}
+  _restartButton: {fileID: 8893157014900411327}
+  _mainMenuButton: {fileID: 2111747004221479662}
 --- !u!1 &8335666785619044261
 GameObject:
   m_ObjectHideFlags: 0

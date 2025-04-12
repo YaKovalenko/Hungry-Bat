@@ -2,6 +2,7 @@ using System;
 using Core.FSM;
 using Core.SceneManagement;
 using UI.Views;
+using UnityEngine;
 
 namespace Core.States
 {
@@ -10,7 +11,7 @@ namespace Core.States
         private readonly ISceneManagementService _sceneManagementService;
         private readonly Action _callback;
 
-        private MainMenuView _mainMenuView;
+        private LosePopupView _losePopupView;
 
         public LoseState(ISceneManagementService sceneManagementService, Action callback)
         {
@@ -20,19 +21,17 @@ namespace Core.States
 
         public override void Enter()
         {
-            // _mainMenuView = GameObject.FindObjectOfType<MainMenuView>();
-            //
-            // if (_mainMenuView != null)
-            // {
-            //     _mainMenuView.OnPlayButtonClick += OnPlayButtonClicked;
-            //     _mainMenuView.SetBestScore(GetBestScore());
-            //     
-            //     _mainMenuView.SetViewVisible(true);
-            // }
+            _losePopupView = GameObject.FindObjectOfType<LosePopupView>();
+
+            if (_losePopupView != null)
+            {
+                _losePopupView.SetViewVisible(true);
+            }
         }
 
         public override void Exit()
         {
+            _losePopupView.SetViewVisible(false);
         }
     }
 }

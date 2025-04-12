@@ -1,6 +1,8 @@
 using System;
 using Core.FSM;
 using Core.SceneManagement;
+using UI.Views;
+using UnityEngine;
 
 namespace Core.States
 {
@@ -8,6 +10,8 @@ namespace Core.States
     {
         private readonly ISceneManagementService _sceneManagementService;
         private readonly Action _callback;
+        
+        private GameplayView _gameplayView;
 
         public GameplayState(ISceneManagementService sceneManagementService, Action callback)
         {
@@ -17,14 +21,19 @@ namespace Core.States
 
         public override async void Enter()
         {
-            await _sceneManagementService.LoadSceneAsync(Constants.GAME_SCENE_NAME);
-            
+            _gameplayView = GameObject.FindObjectOfType<GameplayView>();
+
+            if (_gameplayView != null)
+            {
+                _gameplayView.SetViewVisible(true);
+            }
             
 
         }
 
         public override void Exit()
         {
+            _gameplayView.SetViewVisible(false);
         }
     }
 }

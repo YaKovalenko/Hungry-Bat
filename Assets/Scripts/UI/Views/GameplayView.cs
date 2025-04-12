@@ -15,6 +15,9 @@ namespace UI.Views
         [SerializeField]
         private TextMeshProUGUI _timeText;
 
+        [SerializeField] 
+        private GameObject _spawnArea;
+
         private void Awake()
         {
             _closeButton.onClick.AddListener(OnCloseButtonClicked);
