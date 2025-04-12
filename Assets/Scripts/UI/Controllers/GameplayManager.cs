@@ -81,12 +81,14 @@ namespace UI.Controllers
 
         private void CheckBestTime()
         {
-            PlayerPrefs.SetFloat(Constants.WIN_TIME, _currentTime);
+            var time = _timeDuration - _currentTime;
+            
+            PlayerPrefs.SetFloat(Constants.WIN_TIME, time);
             
             var bestTime = PlayerPrefs.GetFloat(Constants.BEST_TIME_PLAYER_PREFS);
-            if (bestTime < _currentTime)
+            if (bestTime < time)
             {
-                PlayerPrefs.SetFloat(Constants.BEST_TIME_PLAYER_PREFS, _currentTime);
+                PlayerPrefs.SetFloat(Constants.BEST_TIME_PLAYER_PREFS, time);
             }
         }
 
