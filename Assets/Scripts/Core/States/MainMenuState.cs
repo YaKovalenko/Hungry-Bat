@@ -20,8 +20,10 @@ namespace Core.States
             _callback = callback;
         }
 
-        public override void Enter()
+        public override async void Enter()
         {
+            await _sceneManagementService.LoadSceneAsync(Constants.MAIN_MENU_SCENE_NAME);
+
             _mainMenuView = GameObject.FindObjectOfType<MainMenuView>();
 
             if (_mainMenuView != null)

@@ -17,7 +17,6 @@ namespace Core.States
 
         public override async void Enter()
         {
-            await _sceneManagementService.LoadSceneAsync(Constants.MAIN_MENU_SCENE_NAME);
             _callback?.Invoke();
         }
     }
