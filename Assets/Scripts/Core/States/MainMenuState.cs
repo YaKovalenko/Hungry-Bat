@@ -29,7 +29,7 @@ namespace Core.States
             if (_mainMenuView != null)
             {
                 _mainMenuView.OnPlayButtonClick += OnPlayButtonClicked;
-                _mainMenuView.SetBestScore(GetBestScore());
+                _mainMenuView.SetBestTime(GetBestTime());
                 
                 _mainMenuView.SetViewVisible(true);
             }
@@ -45,9 +45,9 @@ namespace Core.States
             _callback?.Invoke();
         }
 
-        private string GetBestScore()
+        private int GetBestTime()
         {
-            return PlayerPrefs.GetInt(Constants.BEST_SCORE_PLAYER_PREFS, 0).ToString();
+            return PlayerPrefs.GetInt(Constants.BEST_TIME_PLAYER_PREFS, 0);
         }
     }
 }

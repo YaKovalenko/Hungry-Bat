@@ -28,6 +28,11 @@ namespace UI.Controllers
             _timerCoroutine = StartCoroutine(TimerCoroutine());
         }
 
+        public float GetTimeRemaining()
+        {
+            return _remainingTime;
+        }
+
         public void StopTimer()
         {
             if (_timerCoroutine != null)

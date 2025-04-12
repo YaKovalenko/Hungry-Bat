@@ -1,5 +1,6 @@
 using System;
 using Core.FSM;
+using Core.Providers;
 using Core.Services.SceneManagement;
 using Core.States;
 using UnityEngine;
@@ -17,9 +18,9 @@ namespace Core
 
         private string _currentState;
 
-        public GameEntryPoint(ISceneManagementService sceneManagementService)
+        public GameEntryPoint(ISceneManagementService sceneManagementService, IStaticDataProvider staticDataProvider)
         {
-            _stateMachine = CreateStateMachine(sceneManagementService);
+            _stateMachine = CreateStateMachine(sceneManagementService, staticDataProvider);
         }
 
         public void Start()
@@ -43,11 +44,11 @@ namespace Core
             _stateMachine.Dispose();
         }
 
-        private FiniteStateMachine CreateStateMachine(ISceneManagementService sceneManagementService)
+        private FiniteStateMachine CreateStateMachine(ISceneManagementService sceneManagementService, IStaticDataProvider staticDataProvider)
         {
             var loadingState = new LoadingState(sceneManagementService, () => _currentState = _mainMenuStateId);
             var mainMenuState = new MainMenuState(sceneManagementService, () => _currentState = _gameSuperState);
-            var gameSuperState = new GameSuperState(sceneManagementService, () => _currentState = _mainMenuStateId);
+            var gameSuperState = new GameSuperState(sceneManagementService, staticDataProvider, () => _currentState = _mainMenuStateId);
 
             var transitions = new Transition[]
             {

@@ -20,7 +20,7 @@ namespace UI.Controllers
         private Treat _treatPrefab;
         private RectTransform _spawnArea;
 
-        private float _timeDuration = 60f;
+        private float _timeDuration;
         private float _remainingTime;
 
         private Coroutine _timerCoroutine;
@@ -31,26 +31,15 @@ namespace UI.Controllers
 
         private void Awake()
         {
-            SetInitialValues();
-            
             _gameplayView.OnCloseButtonClick += OnCloseButtonHandler;
 
             _timer = gameObject.AddComponent<Timer>();
-            _timer.Init(60f);
 
             _timer.OnTimerTick += UpdateTimerDisplay;
             _timer.OnTimerEnd += TimerExpired;
 
             _spawnArea = _gameplayView.SpawnArea;
             _treatPrefab = _gameplayView.TreatPrefab;
-            
-        }
-
-        private void SetInitialValues()
-        {
-            _maxScore = 30;
-            UpdateTimerDisplay(_timeDuration);
-            _gameplayView.SetScore(0, _maxScore);
         }
 
         private void OnDestroy()
@@ -60,8 +49,18 @@ namespace UI.Controllers
             _timer.OnTimerEnd -= TimerExpired;
         }
 
+        public void SetInitialValues(int maxScore, int timeDuration)
+        {
+            _maxScore = maxScore;
+            _timeDuration = timeDuration;
+            
+            UpdateTimerDisplay(_timeDuration);
+            _gameplayView.SetScore(0, _maxScore);
+        }
+
         public void Init()
         {
+            _timer.Init(_timeDuration);
             GetSpawnPositions();
             SpawnTreat();
             ChangeTreatPosition();
@@ -79,14 +78,14 @@ namespace UI.Controllers
             _timer.StopTimer();
         }
 
-        // private void CheckScore()
-        // {
-        //     var bestScore = PlayerPrefs.GetInt(Constants.BEST_SCORE_PLAYER_PREFS);
-        //     if (bestScore < _score)
-        //     {
-        //         PlayerPrefs.SetInt(Constants.BEST_SCORE_PLAYER_PREFS, _score);
-        //     }
-        // }
+        private void CheckBestTime()
+        {
+            var bestTime = PlayerPrefs.GetInt(Constants.BEST_TIME_PLAYER_PREFS);
+            if (bestTime < _score)
+            {
+                PlayerPrefs.SetInt(Constants.BEST_TIME_PLAYER_PREFS, _score);
+            }
+        }
 
         private void OnTreatClicked()
         {

@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using Extensions;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -45,7 +46,7 @@ namespace UI.Views
 
         public void SetTime(float time)
         {
-            _timeText.text = time.ToString();
+            _timeText.text = TimeExtensions.FormatTime(time);
         }
 
         private void OnCloseButtonClicked()

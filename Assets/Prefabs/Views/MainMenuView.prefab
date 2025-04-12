@@ -182,7 +182,7 @@ MonoBehaviour:
   _canvasGroup: {fileID: 879935241493694751}
   _hideOnStart: 1
   _startGameButton: {fileID: 7131509737780269545}
-  _bestScoreText: {fileID: 1054476104926916536}
+  _bestTimeText: {fileID: 1054476104926916536}
 --- !u!1001 &484091762708275524
 PrefabInstance:
   m_ObjectHideFlags: 0

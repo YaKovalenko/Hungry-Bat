@@ -1,5 +1,6 @@
 using System;
 using Core.FSM;
+using Core.Providers;
 using Core.Services.SceneManagement;
 
 namespace Core.States
@@ -11,14 +12,16 @@ namespace Core.States
         private readonly string _loseStateId = FiniteStateMachine.GetStateID<LoseState>();
 
         private readonly ISceneManagementService _sceneManagementService;
-        
+        private readonly IStaticDataProvider _staticDataProvider;
+
         private string _currentState;
 
-        public GameSuperState(ISceneManagementService sceneManagementService, Action setGameStateCallback)
+        public GameSuperState(ISceneManagementService sceneManagementService, IStaticDataProvider staticDataProvider,
+            Action setGameStateCallback)
         {
             _sceneManagementService = sceneManagementService;
             
-            FiniteStateMachine = CreateStateMachine(sceneManagementService, setGameStateCallback);
+            FiniteStateMachine = CreateStateMachine(sceneManagementService, staticDataProvider, setGameStateCallback);
         }
 
         public override async void Enter()
@@ -36,9 +39,11 @@ namespace Core.States
         }
 
         private FiniteStateMachine CreateStateMachine(ISceneManagementService sceneManagementService,
+            IStaticDataProvider staticDataProvider,
             Action setGameStateCallback)
         {
-            var gameplayState = new GameplayState(sceneManagementService, setGameStateCallback, OnPlayerWinHandler, OnPlayerLoseHandler);
+            var gameplayState = new GameplayState(sceneManagementService, staticDataProvider,
+                setGameStateCallback, OnPlayerWinHandler, OnPlayerLoseHandler);
             var winState = new WinState(sceneManagementService, () => _currentState = _winStateId);
             var loseState = new LoseState(sceneManagementService, () => _currentState = _loseStateId);
 

@@ -1,6 +1,8 @@
 using System;
+using Extensions;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Serialization;
 using UnityEngine.UI;
 
 namespace UI.Views
@@ -11,7 +13,7 @@ namespace UI.Views
         private Button _startGameButton;
         
         [SerializeField]
-        private TextMeshProUGUI _bestScoreText;
+        private TextMeshProUGUI _bestTimeText;
 
         public Action OnPlayButtonClick;
         
@@ -30,9 +32,9 @@ namespace UI.Views
             OnPlayButtonClick?.Invoke();
         }
 
-        public void SetBestScore(string bestScore)
+        public void SetBestTime(int bestTime)
         {
-            _bestScoreText.text = bestScore;
+            _bestTimeText.text = TimeExtensions.FormatTime(bestTime);
         }
     }
 }

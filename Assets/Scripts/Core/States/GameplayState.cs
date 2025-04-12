@@ -1,5 +1,7 @@
 using System;
+using Core.Providers;
 using Core.Services.SceneManagement;
+using StaticData;
 using UI.Controllers;
 using UnityEngine;
 using State = Core.FSM.State;
@@ -9,18 +11,22 @@ namespace Core.States
     public class GameplayState : State
     {
         private readonly ISceneManagementService _sceneManagementService;
-        
+        private readonly IStaticDataProvider _staticDataProvider;
+
         private readonly Action _callback;
         private readonly Action _playerWin;
         private readonly Action _playerLose;
 
+        private GameplayManager _gameplayManager;
+        
         private Action _closeGame;
 
-        private GameplayManager _gameplayManager;
-
-        public GameplayState(ISceneManagementService sceneManagementService, Action callback, Action playerWin, Action playerLose)
+        public GameplayState(ISceneManagementService sceneManagementService, IStaticDataProvider staticDataProvider,
+            Action callback, Action playerWin, Action playerLose)
         {
             _sceneManagementService = sceneManagementService;
+            _staticDataProvider = staticDataProvider;
+            
             _callback = callback;
             _playerWin = playerWin;
             _playerLose = playerLose;
@@ -28,7 +34,11 @@ namespace Core.States
 
         public override async void Enter()
         {
+            var gameDataContainer = _staticDataProvider.Get<GameDataContainer>();
+            
             _gameplayManager = GameObject.FindObjectOfType<GameplayManager>();
+
+            _gameplayManager.SetInitialValues(gameDataContainer.AmountOfTreatsRequired, gameDataContainer.RoundTime);
             _gameplayManager.Init();
             
             _gameplayManager.OnCloseButtonClicked += OnButtonClickHandler;
