@@ -1,6 +1,7 @@
 using System;
 using Core.FSM;
 using Core.Services.SceneManagement;
+using UI.Controllers;
 using UI.Views;
 using UnityEngine;
 using UnityEngine.VFX;
@@ -13,7 +14,7 @@ namespace Core.States
         private readonly ISceneManagementService _sceneManagementService;
         private readonly Action _callback;
 
-        private GameplayView _gameplayView;
+        private GameplayManager _gameplayManager;
 
         public GameplayState(ISceneManagementService sceneManagementService, Action callback)
         {
@@ -23,25 +24,14 @@ namespace Core.States
 
         public override async void Enter()
         {
-            _gameplayView = GameObject.FindObjectOfType<GameplayView>();
-
-            if (_gameplayView != null)
-            {
-                _gameplayView.SetViewVisible(true);
-            }
-
-            _gameplayView.GetSpawnPositions();
-            _gameplayView.InstantiateTreat();
+            _gameplayManager = GameObject.FindObjectOfType<GameplayManager>();
             
-            Debug.Log("Enter GameplayState");
-
-
+            _gameplayManager.Init();
         }
 
 
         public override void Exit()
         {
-            _gameplayView.SetViewVisible(false);
         }
     }
 }

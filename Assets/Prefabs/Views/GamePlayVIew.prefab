@@ -122,10 +122,10 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 7570343149589985256}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: -170}
-  m_SizeDelta: {x: 966, y: 847.2}
+  m_AnchorMin: {x: 0, y: 0.5}
+  m_AnchorMax: {x: 1, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: -132.4}
+  m_SizeDelta: {x: -200, y: 1744.7}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &3089864847611355468
 CanvasRenderer:
@@ -148,7 +148,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 0}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -176,6 +176,7 @@ GameObject:
   - component: {fileID: 6054736098432602024}
   - component: {fileID: 879935241493694751}
   - component: {fileID: 1059495695787576146}
+  - component: {fileID: 4386209905707457195}
   m_Layer: 5
   m_Name: GamePlayVIew
   m_TagString: Untagged
@@ -234,6 +235,19 @@ MonoBehaviour:
   _timeText: {fileID: 5924693673084024368}
   _spawnArea: {fileID: 2014776569486826846}
   _treatPrefab: {fileID: 2831276560553918796, guid: 0c0e1d563d4a7784584e7f918002c9a2, type: 3}
+--- !u!114 &4386209905707457195
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8055795348447949608}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 143d1bedcd7b4c53bff171f01d84b4b0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _gameplayView: {fileID: 1059495695787576146}
 --- !u!1001 &7790159312477886118
 PrefabInstance:
   m_ObjectHideFlags: 0
