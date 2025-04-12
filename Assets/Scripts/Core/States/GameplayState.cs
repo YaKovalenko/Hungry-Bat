@@ -63,6 +63,7 @@ namespace Core.States
 
         public override void Exit()
         {
+            _gameplayManager.Clear();
             _gameplayManager.HideView();
             _gameplayManager.OnCloseButtonClicked -= OnButtonClickHandler;
             _gameplayManager.OnPlayerWin -= OnPlayerWinHandler;

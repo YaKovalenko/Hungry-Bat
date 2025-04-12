@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f732dc5acc664ceb80d2a59ae1b55dbe, type: 3}
   m_Name: GameDataContainer
   m_EditorClassIdentifier: 
-  _amountOfTreatsRequired: 30
-  _roundTime: 60
+  _amountOfTreatsRequired: 10
+  _roundTime: 30

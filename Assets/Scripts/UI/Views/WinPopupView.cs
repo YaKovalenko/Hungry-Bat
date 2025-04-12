@@ -1,3 +1,5 @@
+using System;
+using Extensions;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -15,6 +17,8 @@ namespace UI.Views
         [SerializeField]
         private Button _mainMenuButton;
 
+        public Action OnMainMenuClicked;
+        public Action OnRestartClicked;
 
         private void Awake()
         {
@@ -28,19 +32,19 @@ namespace UI.Views
             _mainMenuButton.onClick.RemoveListener(OnMainMenuButtonClicked);
         }
 
-        public void SetTimeText(string timeText)
+        public void SetTime(float time)
         {
-            _timeText.text = timeText;
+            _timeText.text = TimeExtensions.FormatTime(time);
         }
 
         private void OnMainMenuButtonClicked()
         {
-            
+            OnMainMenuClicked?.Invoke();
         }
 
         private void OnRestartButtonClicked()
         {
-            
+            OnRestartClicked?.Invoke();
         }
     }
 }

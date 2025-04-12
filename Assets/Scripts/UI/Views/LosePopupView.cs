@@ -12,6 +12,9 @@ namespace UI.Views
         [SerializeField]
         private Button _mainMenuButton;
 
+        public Action OnMainMenuClicked;
+        public Action OnRestartClicked;
+        
         private void Awake()
         {
             _restartButton.onClick.AddListener(OnRestartButtonClicked);
@@ -26,12 +29,12 @@ namespace UI.Views
 
         private void OnMainMenuButtonClicked()
         {
-            
+            OnMainMenuClicked?.Invoke();
         }
 
         private void OnRestartButtonClicked()
         {
-            
+            OnRestartClicked?.Invoke();
         }
     }
 }

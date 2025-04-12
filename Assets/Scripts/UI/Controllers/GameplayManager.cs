@@ -27,8 +27,8 @@ namespace UI.Controllers
         private Coroutine _timerCoroutine;
 
         public Action OnCloseButtonClicked;
-        public Action OnPlayerWin;
         public Action OnPlayerLose;
+        public Action OnPlayerWin;
 
         private void Awake()
         {
@@ -81,6 +81,8 @@ namespace UI.Controllers
 
         private void CheckBestTime()
         {
+            PlayerPrefs.SetFloat(Constants.WIN_TIME, _currentTime);
+            
             var bestTime = PlayerPrefs.GetFloat(Constants.BEST_TIME_PLAYER_PREFS);
             if (bestTime < _currentTime)
             {
@@ -102,7 +104,6 @@ namespace UI.Controllers
             {
                 _currentTime = _timer.GetTimeRemaining();
                 CheckBestTime();
-                
                 OnPlayerWin?.Invoke();
             }
         }
@@ -144,6 +145,12 @@ namespace UI.Controllers
         {
             _timer.StopTimer();
             _gameplayView.SetViewVisible(false);
+        }
+
+        public void Clear()
+        {
+            _score = 0;
+            Destroy(_treat.gameObject);
         }
     }
 }

@@ -14,12 +14,17 @@ namespace Core.States
         private readonly ISceneManagementService _sceneManagementService;
         private readonly IStaticDataProvider _staticDataProvider;
 
+        private readonly Action _setGameStateCallback;
+        
         private string _currentState;
+
+        private float _winTime;
 
         public GameSuperState(ISceneManagementService sceneManagementService, IStaticDataProvider staticDataProvider,
             Action setGameStateCallback)
         {
             _sceneManagementService = sceneManagementService;
+            _setGameStateCallback = setGameStateCallback;
             
             FiniteStateMachine = CreateStateMachine(sceneManagementService, staticDataProvider, setGameStateCallback);
         }
@@ -30,7 +35,6 @@ namespace Core.States
             base.Enter();
             
             _currentState = _gameplayStateId;
-
         }
         
         public override async void Exit()
@@ -44,8 +48,12 @@ namespace Core.States
         {
             var gameplayState = new GameplayState(sceneManagementService, staticDataProvider,
                 setGameStateCallback, OnPlayerWinHandler, OnPlayerLoseHandler);
-            var winState = new WinState(sceneManagementService, () => _currentState = _winStateId);
-            var loseState = new LoseState(sceneManagementService, () => _currentState = _loseStateId);
+            
+            var winState = new WinState(sceneManagementService,
+                () => _currentState = _winStateId, OnRestartHandler, OnMainMenuHandler);
+            
+            var loseState = new LoseState(sceneManagementService,  
+                () => _currentState = _loseStateId, OnRestartHandler, OnMainMenuHandler);
 
             var transitions = new Transition[]
             {
@@ -66,6 +74,16 @@ namespace Core.States
         private void OnPlayerLoseHandler()
         {
             _currentState = _loseStateId;
+        }
+
+        private void OnRestartHandler()
+        {
+            _currentState = _gameplayStateId;
+        }
+
+        private void OnMainMenuHandler()
+        {
+            _setGameStateCallback?.Invoke();
         }
     }
 }
