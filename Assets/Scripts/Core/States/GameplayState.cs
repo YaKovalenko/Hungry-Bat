@@ -32,6 +32,7 @@ namespace Core.States
             _gameplayManager.OnCloseButtonClicked += OnButtonClickHandler;
         }
 
+
         private void OnButtonClickHandler()
         {
             _callback?.Invoke();

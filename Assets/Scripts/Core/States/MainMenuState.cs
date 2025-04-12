@@ -47,7 +47,7 @@ namespace Core.States
 
         private string GetBestScore()
         {
-            return PlayerPrefs.GetString(Constants.BEST_SCORE_PLAYER_PREFS, "0");
+            return PlayerPrefs.GetInt(Constants.BEST_SCORE_PLAYER_PREFS, 0).ToString();
         }
     }
 }
