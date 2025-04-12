@@ -1,6 +1,6 @@
 using System;
 using Core.FSM;
-using Core.SceneManagement;
+using Core.Services.SceneManagement;
 using Core.States;
 using UnityEngine;
 using VContainer.Unity;
@@ -52,7 +52,8 @@ namespace Core
             var transitions = new Transition[]
             {
                 new Transition(() => string.Equals(_currentState, _mainMenuStateId), loadingState, mainMenuState),
-                new Transition(() => string.Equals(_currentState, _gameSuperState), mainMenuState, gameSuperState)
+                new Transition(() => string.Equals(_currentState, _gameSuperState), mainMenuState, gameSuperState),
+                new Transition(() => string.Equals(_currentState, _mainMenuStateId), gameSuperState, mainMenuState)
             };
 
             return new FiniteStateMachine(transitions, loadingState);

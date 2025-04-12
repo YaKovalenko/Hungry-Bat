@@ -1,4 +1,4 @@
-using Core.SceneManagement;
+using Core.Services.SceneManagement;
 using VContainer;
 using VContainer.Unity;
 
