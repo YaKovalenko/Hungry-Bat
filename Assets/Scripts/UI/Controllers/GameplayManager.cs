@@ -22,6 +22,7 @@ namespace UI.Controllers
 
         private float _timeDuration;
         private float _remainingTime;
+        private float _currentTime;
 
         private Coroutine _timerCoroutine;
 
@@ -80,10 +81,10 @@ namespace UI.Controllers
 
         private void CheckBestTime()
         {
-            var bestTime = PlayerPrefs.GetInt(Constants.BEST_TIME_PLAYER_PREFS);
-            if (bestTime < _score)
+            var bestTime = PlayerPrefs.GetFloat(Constants.BEST_TIME_PLAYER_PREFS);
+            if (bestTime < _currentTime)
             {
-                PlayerPrefs.SetInt(Constants.BEST_TIME_PLAYER_PREFS, _score);
+                PlayerPrefs.SetFloat(Constants.BEST_TIME_PLAYER_PREFS, _currentTime);
             }
         }
 
@@ -97,8 +98,13 @@ namespace UI.Controllers
 
         private void CheckScore()
         {
-            if (_score == _maxScore) 
+            if (_score == _maxScore)
+            {
+                _currentTime = _timer.GetTimeRemaining();
+                CheckBestTime();
+                
                 OnPlayerWin?.Invoke();
+            }
         }
 
         private void GetSpawnPositions()

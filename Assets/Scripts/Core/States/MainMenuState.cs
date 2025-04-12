@@ -45,9 +45,9 @@ namespace Core.States
             _callback?.Invoke();
         }
 
-        private int GetBestTime()
+        private float GetBestTime()
         {
-            return PlayerPrefs.GetInt(Constants.BEST_TIME_PLAYER_PREFS, 0);
+            return PlayerPrefs.GetFloat(Constants.BEST_TIME_PLAYER_PREFS, 0f);
         }
     }
 }

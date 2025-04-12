@@ -32,7 +32,7 @@ namespace UI.Views
             OnPlayButtonClick?.Invoke();
         }
 
-        public void SetBestTime(int bestTime)
+        public void SetBestTime(float bestTime)
         {
             _bestTimeText.text = TimeExtensions.FormatTime(bestTime);
         }
