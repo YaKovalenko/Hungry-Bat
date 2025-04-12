@@ -1,6 +1,6 @@
 using System;
 using Core.FSM;
-using Core.SceneManagement;
+using Core.Services.SceneManagement;
 
 namespace Core.States
 {

@@ -1,6 +1,6 @@
 using System;
 using Core.FSM;
-using Core.SceneManagement;
+using Core.Services.SceneManagement;
 
 namespace Core.States
 {
@@ -24,27 +24,30 @@ namespace Core.States
         public override async void Enter()
         {
             await _sceneManagementService.LoadSceneAsync(Constants.GAME_SCENE_NAME);
+            base.Enter();
+            
+            _currentState = _gameplayStateId;
 
         }
         
         public override async void Exit()
         {
-            
+            base.Exit();
         }
 
         private FiniteStateMachine CreateStateMachine(ISceneManagementService sceneManagementService,
-            Action gameStateCallback)
+            Action setGameStateCallback)
         {
-            var gameplayState = new GameplayState(sceneManagementService, gameStateCallback);
+            var gameplayState = new GameplayState(sceneManagementService, setGameStateCallback);
             var winState = new WinState(sceneManagementService, () => _currentState = _winStateId);
             var loseState = new LoseState(sceneManagementService, () => _currentState = _loseStateId);
 
             var transitions = new Transition[]
             {
-                new Transition(() => string.Equals(_currentState, _winStateId), gameplayState, winState),
-                new Transition(() => string.Equals(_currentState, _gameplayStateId), winState, gameplayState),
-                new Transition(() => string.Equals(_currentState, _loseStateId), gameplayState, loseState),
-                new Transition(() => string.Equals(_currentState, _gameplayStateId), loseState, gameplayState)
+                new (() => string.Equals(_currentState, _winStateId), gameplayState, winState),
+                new (() => string.Equals(_currentState, _gameplayStateId), winState, gameplayState),
+                new (() => string.Equals(_currentState, _loseStateId), gameplayState, loseState),
+                new (() => string.Equals(_currentState, _gameplayStateId), loseState, gameplayState)
             };
 
             return new FiniteStateMachine(transitions, gameplayState);
